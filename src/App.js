@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Emoji from "./Emoji";
+import TemperatureButton from "./TemperatureButton";
 
-function App() {
+const App = () => {
+  const [temperature, setTemperature] = useState(20);
+
+  const increaseTemperature = () => setTemperature((prevTemp) => prevTemp + 1);
+  const decreaseTemperature = () => setTemperature((prevTemp) => prevTemp - 1);
+
+  const buttonContainerStyle = {
+    display: "flex",
+    justifyContent: "space-around",
+    width: "50%",
+    paddingBottom: "2em",
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+      }}
+    >
+      <h1>Adjust the temperature!</h1>
+      <Emoji temperature={temperature} />
+      <h2 style={{ fontSize: "30px" }}>{temperature}°C</h2>
+      <div style={buttonContainerStyle}>
+        <TemperatureButton emoji="❄️" onClick={decreaseTemperature} />
+        <TemperatureButton emoji="🔥" onClick={increaseTemperature} />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
